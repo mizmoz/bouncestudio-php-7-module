@@ -48,6 +48,15 @@ $ignoreAddresses = 'noreply@mizmoz.net|you@example.com';
 
 $bounceStudio = new BounceStudio($license, $message, $ignoreAddresses);
 
-// Get the bounce code - http://www.boogietools.com/Products/Linux/BounceStudioAPI/Email-Bounce-Boogie-Bounce-API-Categories.asp
+// Get the bounce code
+// @see http://www.boogietools.com/Products/Linux/BounceStudioAPI/Email-Bounce-Boogie-Bounce-API-Categories.asp
 $code = $bounceStudio->getBounceCode();
 
+// Get the message body
+$body = $bounceStudio->getBody();
+
+// Get the email headers as a string
+$headers = $bounceStudio->getHeaders();
+
+// Get a specific header from the bounce email
+$date = $bounceStudio->getHeader('date');
