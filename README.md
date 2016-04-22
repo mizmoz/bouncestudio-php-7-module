@@ -60,3 +60,6 @@ $headers = $bounceStudio->getHeaders();
 
 // Get a specific header from the bounce email
 $date = $bounceStudio->getHeader('date');
+
+// Get a specific header from the original email
+$messageId = $bounceStudio->getOriginalHeader('message-id');
