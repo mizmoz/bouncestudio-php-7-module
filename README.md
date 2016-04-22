@@ -63,3 +63,16 @@ $date = $bounceStudio->getHeader('date');
 
 // Get a specific header from the original email
 $messageId = $bounceStudio->getOriginalHeader('message-id');
+
+// Get the from email address
+$fromEmail = $bounceStudio->getFromAddress();
+
+// Get the from name
+$fromName = $bounceStudio->getFromName();
+
+// Get the to email address
+$toEmail = $bounceStudio->getToAddress();
+
+// Get the to name
+$toName = $bounceStudio->getToName();
+
