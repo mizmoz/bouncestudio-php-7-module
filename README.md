@@ -52,6 +52,9 @@ $bounceStudio = new BounceStudio($license, $message, $ignoreAddresses);
 // @see http://www.boogietools.com/Products/Linux/BounceStudioAPI/Email-Bounce-Boogie-Bounce-API-Categories.asp
 $code = $bounceStudio->getBounceCode();
 
+// Get the bounced email address
+$bounceEmail = $bounceStudio->getBounceEmail();
+
 // Get the message body
 $body = $bounceStudio->getBody();
 
@@ -76,3 +79,12 @@ $toEmail = $bounceStudio->getToAddress();
 // Get the to name
 $toName = $bounceStudio->getToName();
 
+// Get the reply-to email address
+$replyToEmail = $bounceStudio->getReplyToAddress();
+
+// Get the reply-to name
+$replyToName = $bounceStudio->getReplyToName();
+
+// Get the subject
+$subject = $bounceStudio->getSubject();
+```
