@@ -2,9 +2,28 @@
 
 See website http://www.boogietools.com/
 
-## Building on Ubuntu 14.04.
+## Building
 
-Coming shortly.
+In the src/ directory run:
+
+```
+phpize7.0
+
+./configure --enable-bouncestudio
+
+make CFLAGS="-lBounceStudio64 $CFLAGS"
+
+make install
+
+```
+
+Find your PHP conf directory
+
+```php -i|grep "^Scan this dir for additional .*$"|grep -oh '/etc.*$'```
+
+Create the ini file
+
+```echo 'bouncestudio.so' > /path/to/modules/20-bouncestudio-x.ini```
 
 ## Usage
 
