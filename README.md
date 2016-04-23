@@ -1,6 +1,8 @@
 # PHP 7 Module for Boogie Tools - BounceStudio 
 
-See website http://www.boogietools.com/
+BounceStudio by Boogie Tools is a paid for library for handling your bounce emails - see http://www.boogietools.com/ for more details.
+
+PHP module code provided by Mizmoz under the MIT license - https://www.mizmoz.com/
 
 ## Building
 
