@@ -25,7 +25,7 @@ Find your PHP conf directory
 
 Create the ini file
 
-```echo 'bouncestudio.so' > /path/to/modules/20-bouncestudio-x.ini```
+```echo 'extension=bouncestudio.so' > /path/to/modules/20-bouncestudio.ini```
 
 ## Usage
 
