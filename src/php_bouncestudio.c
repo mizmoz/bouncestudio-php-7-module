@@ -16,9 +16,6 @@ PHP_METHOD(BounceStudio, __construct)
         return;
     }
 
-    // init bounce studio
-    bsBounceStudio_init();
-
     // set the properties
     zval *self = getThis();
     zend_update_property_string(bouncestudio_ce, self, "license", sizeof("license") - 1, license->val);
@@ -402,6 +399,9 @@ PHP_MINIT_FUNCTION(bouncestudio)
 
     zend_declare_property_long(bouncestudio_ce, "code", sizeof("code")-1, 0, ZEND_ACC_PRIVATE);
     zend_declare_property_string(bouncestudio_ce, "email", sizeof("email")-1, "", ZEND_ACC_PRIVATE);
+
+    // init bounce studio
+    bsBounceStudio_init();
 
     return SUCCESS;
 }
