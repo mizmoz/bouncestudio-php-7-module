@@ -2,12 +2,26 @@
 
 See website http://www.boogietools.com/
 
-## Building
+## Installing BounceStudio
+
+First we need to make sure the BounceStudio library is installed and ready to use
+
+- Copy BounceStudio.h header file to `/usr/local/include`
+- Copy libBounceStudio64.so.3.x.x.x shared object file to `/usr/local/lib`
+- Create symbolic link to lib file `ln -s /usr/local/lib/libBounceStudio64.so.3.x.x.x /usr/local/lib/libBounceStudio64.so`
+- Create conf file `echo /usr/local/lib > /etc/ld.so.conf.d/BounceStudio.conf`
+- Run `ldconfig` to setup the library
+
+## Building the PHP Module
 
 In the src/ directory run:
 
 ```
+# For PHP 7
 phpize7.0
+
+# For PHP 7.1
+phpize7.1
 
 ./configure --enable-bouncestudio
 

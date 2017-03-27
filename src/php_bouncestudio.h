@@ -9,6 +9,7 @@
 #endif
 
 #include "php.h"
+#include "BounceStudio.h"
 
 zend_class_entry *bouncestudio_ce;
 
