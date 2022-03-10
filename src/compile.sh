@@ -2,7 +2,7 @@
 
 make clean
 
-phpize7.1
+phpize
 
 ./configure --enable-bouncestudio
 
