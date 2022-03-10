@@ -1,4 +1,4 @@
-# PHP 7 Module for Boogie Tools - BounceStudio 
+# PHP 7/8 Module for Boogie Tools - BounceStudio 
 
 BounceStudio by Boogie Tools is a paid for library for handling your bounce emails - see http://www.boogietools.com/ for more details.
 
@@ -19,11 +19,14 @@ First we need to make sure the BounceStudio library is installed and ready to us
 In the src/ directory run:
 
 ```
-# For PHP 7
-phpize7.0
+# For PHP 7.4
+phpize7.4
 
-# For PHP 7.1
-phpize7.1
+# For PHP 8.0
+phpize8.0
+
+# For PHP 8.1
+phpize8.1
 
 ./configure --enable-bouncestudio
 

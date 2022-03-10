@@ -17,12 +17,12 @@ PHP_METHOD(BounceStudio, __construct)
     }
 
     // set the properties
-    zval *self = getThis();
-    zend_update_property_string(bouncestudio_ce, self, "license", sizeof("license") - 1, license->val);
-    zend_update_property_string(bouncestudio_ce, self, "message", sizeof("message") - 1, message->val);
+    zend_object *obj = Z_OBJ_P(getThis());
+    zend_update_property_string(bouncestudio_ce, obj, "license", sizeof("license") -1, license->val);
+    zend_update_property_string(bouncestudio_ce, obj, "message", sizeof("message") - 1, message->val);
 
     if (ignoreAddresses) {
-        zend_update_property_string(bouncestudio_ce, self, "ignoreAddresses", sizeof("ignoreAddresses") - 1, ignoreAddresses->val);
+        zend_update_property_string(bouncestudio_ce, obj, "ignoreAddresses", sizeof("ignoreAddresses") - 1, ignoreAddresses->val);
     } else {
         ignoreAddresses = zend_string_init("", 0, 0);
     }
@@ -32,8 +32,8 @@ PHP_METHOD(BounceStudio, __construct)
     email = strpprintf(0, "%s", bounce);
 
     // save the results for later
-    zend_update_property_long(bouncestudio_ce, self, "code", sizeof("code") - 1, code);
-    zend_update_property_string(bouncestudio_ce, self, "email", sizeof("email") - 1, email->val);
+    zend_update_property_long(bouncestudio_ce, obj, "code", sizeof("code") - 1, code);
+    zend_update_property_string(bouncestudio_ce, obj, "email", sizeof("email") - 1, email->val);
 
     // clean up
     zend_string_free(license);
@@ -49,10 +49,10 @@ PHP_METHOD(BounceStudio, getBounceCode)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     int code;
 
-    str = zend_read_property(bouncestudio_ce, self, "code", strlen("code"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "code", strlen("code"), 1, &rv);
     code = zval_get_long(str);
 
     RETURN_LONG(code);
@@ -65,10 +65,10 @@ PHP_METHOD(BounceStudio, getBounceEmail)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *email = NULL;
 
-    str = zend_read_property(bouncestudio_ce, self, "email", strlen("email"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "email", strlen("email"), 1, &rv);
     email = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     RETURN_STR(email);
@@ -81,11 +81,11 @@ PHP_METHOD(BounceStudio, getBody)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *body;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     // get the email body
@@ -104,11 +104,11 @@ PHP_METHOD(BounceStudio, getHeaders)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetHeader(message->val, &header);
@@ -125,7 +125,7 @@ PHP_METHOD(BounceStudio, getHeader)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     zend_string *name = NULL;
     char *header;
@@ -134,7 +134,7 @@ PHP_METHOD(BounceStudio, getHeader)
         return;
     }
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetCustomHeader(message->val, &header, name->val);
@@ -152,7 +152,7 @@ PHP_METHOD(BounceStudio, getOriginalHeader)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     zend_string *name = NULL;
     char *header;
@@ -161,7 +161,7 @@ PHP_METHOD(BounceStudio, getOriginalHeader)
         return;
     }
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetOrigCustomHeader(message->val, &header, name->val);
@@ -179,11 +179,11 @@ PHP_METHOD(BounceStudio, getFromAddress)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetFromAddress(message->val, &header);
@@ -200,11 +200,11 @@ PHP_METHOD(BounceStudio, getFromName)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetFromFriendlyName(message->val, &header);
@@ -221,11 +221,11 @@ PHP_METHOD(BounceStudio, getToAddress)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetToAddress(message->val, &header);
@@ -242,11 +242,11 @@ PHP_METHOD(BounceStudio, getToName)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetToFriendlyName(message->val, &header);
@@ -262,12 +262,12 @@ PHP_METHOD(BounceStudio, getToName)
 PHP_METHOD(BounceStudio, getReplyToAddress)
 {
     zval rv;
-    zval *str;
-    zval *self = getThis();
+    zval *str;    
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetReplyToAddress(message->val, &header);
@@ -284,11 +284,11 @@ PHP_METHOD(BounceStudio, getReplyToName)
 {
     zval rv;
     zval *str;
-    zval *self = getThis();
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetReplyToFriendlyName(message->val, &header);
@@ -304,12 +304,12 @@ PHP_METHOD(BounceStudio, getReplyToName)
 PHP_METHOD(BounceStudio, getSubject)
 {
     zval rv;
-    zval *str;
-    zval *self = getThis();
+    zval *str;    
+    zend_object *obj = Z_OBJ_P(getThis());
     zend_string *message = NULL;
     char *header;
 
-    str = zend_read_property(bouncestudio_ce, self, "message", strlen("message"), 1, &rv);
+    str = zend_read_property(bouncestudio_ce, obj, "message", strlen("message"), 1, &rv);
     message = strpprintf(0, "%s", Z_STRVAL_P(str));
 
     bsGetSubject(message->val, &header);
